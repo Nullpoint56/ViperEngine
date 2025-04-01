@@ -7,10 +7,11 @@ from engine.ecs.registry import Registry
 from engine.systems.input import UIInputSystem
 from engine.systems.menu_ui import MenuUISystem
 from engine.systems.ui_render import UIRenderSystem
+from engine.utilities.profiler import profile
 from game.scenes.ui_scene_manager import load_main_menu_ui
 from game.states import GameState
 
-
+@profile("MainMenuLoop")
 def run_main_menu(game_state):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
