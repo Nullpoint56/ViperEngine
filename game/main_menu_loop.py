@@ -4,9 +4,9 @@ import pygame
 
 from engine.commands.command_executor import CommandExecutor
 from engine.ecs.registry import Registry
-from engine.systems.input import UIInputSystem
-from engine.systems.menu_ui import MenuUISystem
-from engine.systems.ui_render import UIRenderSystem
+from engine.systems.input import ui_input_system
+from engine.systems.menu_ui import menu_ui_system
+from engine.systems.ui_render import ui_render_system
 from engine.utilities.profiler import profile
 from game.scenes.ui_scene_manager import load_main_menu_ui
 from game.states import GameState
@@ -34,13 +34,13 @@ def run_main_menu(game_state):
                 running = False
 
         # Update and render ECS systems
-        UIInputSystem(registry, mouse_pos, mouse_pressed)
-        UIRenderSystem(screen, registry, font, active_scene="main_menu")
+        ui_input_system(registry, mouse_pos, mouse_pressed)
+        ui_render_system(screen, registry, font, active_scene="main_menu")
 
         # Handle logic (1 frame ECS simulation)
         snapshot = registry.create_snapshot()
         command_queue = Queue()
-        MenuUISystem(snapshot, list(snapshot['entities'].keys()), command_queue)
+        menu_ui_system(snapshot, list(snapshot['entities'].keys()), command_queue)
 
         if not command_queue.empty():
             for cmd in command_queue.get():

@@ -3,7 +3,7 @@ from multiprocessing import Queue
 from engine.components.dummy import Position, Command
 
 
-def PhysicsSystem(snapshot: dict[str, any], entity_ids: list[int], queue: Queue):
+def physics_system(snapshot: dict[str, any], entity_ids: list[int], queue: Queue):
     commands = []
     for eid in entity_ids:
         pos = snapshot['Position'].get(eid)

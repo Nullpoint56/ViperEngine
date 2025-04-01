@@ -3,7 +3,7 @@ from multiprocessing import Queue
 from engine.commands.command import Command
 
 
-def MenuUISystem(snapshot: dict[str, any], entity_ids: list[int], queue: Queue):
+def menu_ui_system(snapshot: dict[str, any], entity_ids: list[int], queue: Queue):
     commands = []
     for eid in entity_ids:
         button = snapshot['ButtonComponent'].get(eid)

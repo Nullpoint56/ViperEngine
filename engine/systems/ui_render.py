@@ -4,7 +4,7 @@ from engine.components.ui_components import UITransform, TextComponent, ButtonCo
 from engine.ecs.registry import Registry
 
 
-def UIRenderSystem(screen, registry: Registry, font, active_scene):
+def ui_render_system(screen, registry: Registry, font, active_scene):
     for eid, transform in registry.components[UITransform].items():
         scene = registry.components[SceneTag].get(eid)
         if not scene or scene.name != active_scene:

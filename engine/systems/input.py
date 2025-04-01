@@ -2,7 +2,7 @@ from engine.components.ui_components import UITransform, ButtonComponent
 from engine.ecs.registry import Registry
 
 
-def UIInputSystem(registry: Registry, mouse_pos, mouse_pressed):
+def ui_input_system(registry: Registry, mouse_pos, mouse_pressed):
     for eid, transform in registry.components[UITransform].items():
         button = registry.components[ButtonComponent].get(eid)
         if not button:
