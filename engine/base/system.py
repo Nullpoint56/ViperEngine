@@ -5,13 +5,13 @@ from engine.base.command import BaseCommand
 from engine.base.types import ExecutionMode
 
 
-class System(ABC):
+class BaseSystem(ABC):
     """
     Base ECS System. Defines lifecycle hooks and is meant to be inherited.
     Every system should declare an execution_mode and optionally override lifecycle methods.
     """
     execution_mode: ExecutionMode = "sync"
-    priority: Union[int, Literal["realtime", "high", "normal", "low"]] = 0
+    priority: Union[int, Literal["realtime", "high", "normal", "low"]] = "low"
 
     def __init__(self):
         self._config: dict[str, any] = {}
@@ -39,7 +39,7 @@ class System(ABC):
         pass
 
 
-class AsyncSystem(System):
+class BaseAsyncSystem(BaseSystem):
     execution_mode: ExecutionMode = "async"
 
     @abstractmethod
@@ -47,17 +47,15 @@ class AsyncSystem(System):
         pass
 
 
-class ThreadedSystem(System):
+class BaseThreadedSystem(BaseSystem):
     execution_mode: ExecutionMode = "thread"
-
-    # Inherits update() from System; TaskManager will run in threadpool
 
     @abstractmethod
     def update(self, snapshot: dict[str, any], entities: list[int], queue: any) -> list[BaseCommand]:
         pass
 
 
-class ProcessSystem(System):
+class BaseProcessSystem(BaseSystem):
     execution_mode: ExecutionMode = "process"
 
     @staticmethod

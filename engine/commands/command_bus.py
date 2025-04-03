@@ -19,6 +19,6 @@ class CommandBus:
         for handler in handlers:
             handler(command)
 
+
 command_bus = CommandBus()
 command_bus.subscribe("ChangeState", lambda cmd: recorder.record(cmd.entity, "GameState", cmd.data, tick_counter[0]))
-
