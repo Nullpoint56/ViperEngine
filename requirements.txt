@@ -1,4 +1,0 @@
-pygame~=2.6.1
-tomli~=2.2.1
-tomli_w~=1.2.0
-aiofiles~=24.1.0
